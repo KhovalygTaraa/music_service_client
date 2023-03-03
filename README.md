@@ -9,8 +9,7 @@
 4. go run main.go prev
 5. go run main.go add --songName "Hello" --authorName "Adele" --duration 31
 6. go run main.go interactive(включает интерактивный режим, при котором можно вводить все комманды)
-+ play
-+ pause
-+
-play
-+ add "Hello" "Adele" "31"
+7. play
+8. pause
+9. play
+10. add "Hello" "Adele" "31"
