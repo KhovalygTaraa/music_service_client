@@ -40,7 +40,7 @@ func add(cmd *cobra.Command, args []string) {
 
 func init() {
 	rootCmd.AddCommand(addCmd)
-	addCmd.Flags().StringVar(&songName, "song name", "unknown", "")
-	addCmd.Flags().StringVar(&songAuthor, "song author", "unknown", "")
-	addCmd.Flags().IntVar(&duration, "song duration", 30, "")
+	addCmd.Flags().StringVar(&songName, "songName", "unknown", "")
+	addCmd.Flags().StringVar(&songAuthor, "songAuthor", "unknown", "")
+	addCmd.Flags().IntVar(&duration, "songDuration", 30, "")
 }
