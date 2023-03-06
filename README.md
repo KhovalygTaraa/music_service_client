@@ -22,4 +22,4 @@ make
 ./music_servise interactive \
 play \
 add wrong \
-add "Hello" "Adele" 90 \
+add "Hello" "Adele" 90
