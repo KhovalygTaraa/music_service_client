@@ -17,17 +17,18 @@ var nextCmd = &cobra.Command{
 }
 
 func next(cmd *cobra.Command, args []string) {
-	fmt.Println("next called")
-	conn, err := grpc.Dial("0.0.0.0:9000", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	host, port := getHostPort()
+	conn, err := grpc.Dial(fmt.Sprintf("%s:%s", host, port), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
-		panic(err)
+		fmt.Println("Error:", err)
 	}
 	defer conn.Close()
 	client := api.NewMusicServiceClient(conn)
-	_, err = client.Next(context.Background(), &api.Empty{})
+	response, err := client.Next(context.Background(), &api.Empty{})
 	if err != nil {
-		panic(err)
+		fmt.Println("Error:", err)
 	}
+	fmt.Println(response.Response)
 }
 func init() {
 	rootCmd.AddCommand(nextCmd)

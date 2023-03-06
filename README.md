@@ -13,3 +13,8 @@
 8. pause
 9. play
 10. add "Hello" "Adele" "31"
+
+    rpc DeleteSong(Song) returns(Response);
+    rpc GetPlaylist(Empty) returns(Playlist);
+    rpc GetSong(Song) returns(Song);
+    rpc UpdateSong(Song) returns(Response);

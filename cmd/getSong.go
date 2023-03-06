@@ -9,14 +9,14 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 )
 
-var prevCmd = &cobra.Command{
-	Use:   "prev",
+var getSongCmd = &cobra.Command{
+	Use:   "getSong",
 	Short: "A brief description of your command",
 	Long: ``,
-	Run: prev,
+	Run: getSong,
 }
 
-func prev(cmd *cobra.Command, args []string) {
+func getSong(cmd *cobra.Command, args []string) {
 	host, port := getHostPort()
 	conn, err := grpc.Dial(fmt.Sprintf("%s:%s", host, port), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
@@ -24,13 +24,14 @@ func prev(cmd *cobra.Command, args []string) {
 	}
 	defer conn.Close()
 	client := api.NewMusicServiceClient(conn)
-	response, err := client.Prev(context.Background(), &api.Empty{})
+	response, err := client.GetSong(context.Background(), &api.Song{Name: songName})
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
-	fmt.Println(response.Response)
+	fmt.Println(response)
 }
 
 func init() {
-	rootCmd.AddCommand(prevCmd)
+	rootCmd.AddCommand(getSongCmd)
+	getSongCmd.Flags().StringVar(&songName, "songName", "unknown", "")
 }

@@ -3,6 +3,7 @@ package cmd
 import (
 	"os"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var rootCmd = &cobra.Command{
@@ -23,8 +24,22 @@ func Execute() {
 	}
 }
 
+var _config string
+
+func getHostPort() (string, string){
+	viper.SetConfigFile(_config)
+	err := viper.ReadInConfig()
+	if err != nil {
+		panic(err)
+	}
+	host := viper.GetString("server_host")
+	port := viper.GetString("server_port")
+	return host, port
+}
+
 func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.PersistentFlags().StringVar(&_config, "config", "config.yaml", "")
 }
 
 

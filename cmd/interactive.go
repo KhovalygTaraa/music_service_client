@@ -21,10 +21,12 @@ var interactiveCmd = &cobra.Command{
 }
 
 func interactive(cmd *cobra.Command, args []string) {
-	fmt.Println("interactive called")
 	var act string
+	var response *api.Response = nil
+	var err error
 
-	conn, err := grpc.Dial("0.0.0.0:9000", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	host, port := getHostPort()
+	conn, err := grpc.Dial(fmt.Sprintf("%s:%s", host, port), grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		panic(err)
 	}
@@ -37,46 +39,88 @@ func interactive(cmd *cobra.Command, args []string) {
 		scanner.Scan()
 		act = scanner.Text()
 		if act == "play" {
-			fmt.Println("Playing")
-			_, err = client.Play(context.Background(), &api.Empty{})
+			response, err = client.Play(context.Background(), &api.Empty{})
 			if err != nil {
-				panic(err)
+				fmt.Println("Error:", err)
 			}
 		} else if act == "pause" {
-			fmt.Println("Paused")
-			_, err = client.Pause(context.Background(), &api.Empty{})
+			response, err = client.Pause(context.Background(), &api.Empty{})
 			if err != nil {
-				panic(err)
+				fmt.Println("Error:", err)
 			}
 		} else if act == "prev" {
-			fmt.Println("Prev song")
-			_, err = client.Prev(context.Background(), &api.Empty{})
+			response, err = client.Prev(context.Background(), &api.Empty{})
 			if err != nil {
-				panic(err)
+				fmt.Println("Error:", err)
 			}
 		} else if act == "next" {
-			fmt.Println("Next song")
-			_, err = client.Next(context.Background(), &api.Empty{})
+			response, err = client.Next(context.Background(), &api.Empty{})
 			if err != nil {
-				panic(err)
+				fmt.Println("Error:", err)
 			}
 		} else if strings.Contains(act, "add") {
 			params := strings.Split(act, " ")
 			if (len(params) != 4 || params[0] != "add") {
-				fmt.Println("can't add new song, wrong format. Use: add <songName> <duration>")
+				fmt.Println("can't add new song, wrong format. Use: add <songName> <songAuthor> <duration>")
 				continue
 			}
 			dur, err := strconv.Atoi(params[3])
 			if err != nil {
-				panic("Atoi error")
+				fmt.Println("Error:", err)
 			}
 			song := &api.Song{Name: params[1], Author: params[2], Duration: int64(dur)}
-			_, err = client.AddSong(context.Background(), song)
+			response, err = client.AddSong(context.Background(), song)
 			if err != nil {
-				panic(err)
+				fmt.Println("Error:", err)
+			}
+		} else if strings.Contains(act, "delete") {
+			params := strings.Split(act, " ")
+			if (len(params) != 2 || params[0] != "delete") {
+				fmt.Println("can't delete song, wrong format. Use: delete <songName>")
+				continue
+			}
+			song := &api.Song{Name: params[1]}
+			response, err = client.DeleteSong(context.Background(), song)
+			if err != nil {
+				fmt.Println("Error:", err)
+			}
+		} else if strings.Contains(act, "getSong") {
+			params := strings.Split(act, " ")
+			if (len(params) != 2 || params[0] != "getSong") {
+				fmt.Println("can't get song, wrong format. Use: getSong <songName>")
+				continue
+			}
+			song := &api.Song{Name: params[1]}
+			res, err := client.GetSong(context.Background(), song)
+			if err != nil {
+				fmt.Println("Error:", err)
+			}
+			fmt.Println(res)
+		} else if strings.Contains(act, "getPlaylist") {
+			res, err := client.GetPlaylist(context.Background(), &api.Empty{})
+			if err != nil {
+				fmt.Println("Error:", err)
+			}
+			fmt.Println(res)
+		} else if strings.Contains(act, "update") {
+			params := strings.Split(act, " ")
+			if (len(params) != 4 || params[0] != "update") {
+				fmt.Println("can't update song, wrong format. Use: update <songName> <songAuthor> <duration>")
+				continue
+			}
+			dur, err := strconv.Atoi(params[3])
+			if err != nil {
+				fmt.Println("Error:", err)
+			}
+			song := &api.Song{Name: params[1], Author: params[2], Duration: int64(dur)}
+			response, err = client.UpdateSong(context.Background(), song)
+			if err != nil {
+				fmt.Println("Error:", err)
 			}
 		}
+		fmt.Println(response.Response)
 	}
+
 }
 
 func init() {

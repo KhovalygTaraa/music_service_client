@@ -16,23 +16,22 @@ var playCmd = &cobra.Command{
 	Run: play,
 }
 
-var _config string
 
 func play(cmd *cobra.Command, args []string) {
-		fmt.Println("play called")
-		conn, err := grpc.Dial("0.0.0.0:9000", grpc.WithTransportCredentials(insecure.NewCredentials()))
-		if err != nil {
-			panic(err)
-		}
-		defer conn.Close()
-		client := api.NewMusicServiceClient(conn)
-		_, err = client.Play(context.Background(), &api.Empty{})
-		if err != nil {
-			panic(err)
-		}
+	host, port := getHostPort()
+	conn, err := grpc.Dial(fmt.Sprintf("%s:%s", host, port), grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	defer conn.Close()
+	client := api.NewMusicServiceClient(conn)
+	response, err := client.Play(context.Background(), &api.Empty{})
+	if err != nil {
+		fmt.Println("Error:", err)
+	}
+	fmt.Println(response.Response)
 }
 
 func init() {
 	rootCmd.AddCommand(playCmd)
-	playCmd.Flags().StringVar(&_config, "config", "./config.yaml", "")
 }
