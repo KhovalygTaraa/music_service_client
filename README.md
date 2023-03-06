@@ -12,13 +12,12 @@ make
 ### Просмотр необходимых опций комманд:
 ./music_servise add -help
 
-### Интерактивный режим:
-./music_servise interactive
-
 ### Примеры:
 ./music_servise play \
 ./music_servise add --songName "Hello" --authorName "Adele" --duration 31 
 
+### Интерактивный режим:
+./music_servise interactive
 ### Интерактивный режим пример:
 ./music_servise interactive \
 play \
