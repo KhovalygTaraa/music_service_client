@@ -11,7 +11,7 @@ import (
 
 var playCmd = &cobra.Command{
 	Use:   "play",
-	Short: "A brief description of your command",
+	Short: "play current song",
 	Long: ``,
 	Run: play,
 }

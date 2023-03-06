@@ -11,7 +11,7 @@ import (
 
 var getSongCmd = &cobra.Command{
 	Use:   "getSong",
-	Short: "A brief description of your command",
+	Short: "get specific song by name",
 	Long: ``,
 	Run: getSong,
 }

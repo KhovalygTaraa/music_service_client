@@ -11,7 +11,7 @@ import (
 
 var deleteCmd = &cobra.Command{
 	Use:   "delete",
-	Short: "A brief description of your command",
+	Short: "delete song from playlist by name",
 	Long: ``,
 	Run: delete,
 }

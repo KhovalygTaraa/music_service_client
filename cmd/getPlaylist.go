@@ -11,7 +11,7 @@ import (
 
 var getPlaylistCmd = &cobra.Command{
 	Use:   "getPlaylist",
-	Short: "A brief description of your command",
+	Short: "get all songs in playlist",
 	Long: ``,
 	Run: getPlaylist,
 }

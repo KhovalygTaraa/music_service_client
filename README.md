@@ -2,19 +2,24 @@
 
 Клиент реализован на фреймворке cobra-cli.
 
-Использование:
-1. go run main.go play
-2. go run main.go pause
-3. go run main.go next
-4. go run main.go prev
-5. go run main.go add --songName "Hello" --authorName "Adele" --duration 31
-6. go run main.go interactive(включает интерактивный режим, при котором можно вводить все комманды)
-7. play
-8. pause
-9. play
-10. add "Hello" "Adele" "31"
+Команда сборки:
+make
 
-    rpc DeleteSong(Song) returns(Response);
-    rpc GetPlaylist(Empty) returns(Playlist);
-    rpc GetSong(Song) returns(Song);
-    rpc UpdateSong(Song) returns(Response);
+Список доступных комманд:
+./music_service -help
+
+Просмотр необходимых опций комманд:
+./music_servise add -help
+
+Интерактивный режим:
+./music_servise interactive
+
+Примеры:
+./music_servise play
+./music_servise add --songName "Hello" --authorName "Adele" --duration 31
+
+Интерактивный режим пример:
+./music_servise interactive
+play
+add wrong
+add "Hello" "Adele" 90

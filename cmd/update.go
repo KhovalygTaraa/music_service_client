@@ -11,7 +11,7 @@ import (
 
 var updateCmd = &cobra.Command{
 	Use:   "update",
-	Short: "A brief description of your command",
+	Short: "update song by name",
 	Long: ``,
 	Run: update,
 }

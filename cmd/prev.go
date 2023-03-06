@@ -11,7 +11,7 @@ import (
 
 var prevCmd = &cobra.Command{
 	Use:   "prev",
-	Short: "A brief description of your command",
+	Short: "play prev song in playlist",
 	Long: ``,
 	Run: prev,
 }

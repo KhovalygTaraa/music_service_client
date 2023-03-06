@@ -11,7 +11,7 @@ import (
 
 var nextCmd = &cobra.Command{
 	Use:   "next",
-	Short: "A brief description of your command",
+	Short: "play next song in playlist",
 	Long: ``,
 	Run: next,
 }

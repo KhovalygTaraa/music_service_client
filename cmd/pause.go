@@ -11,7 +11,7 @@ import (
 
 var pauseCmd = &cobra.Command{
 	Use:   "pause",
-	Short: "A brief description of your command",
+	Short: "pause song",
 	Long: ``,
 	Run: pause,
 }

@@ -15,7 +15,7 @@ import (
 
 var interactiveCmd = &cobra.Command{
 	Use:   "interactive",
-	Short: "A brief description of your command",
+	Short: "interactive client",
 	Long: ``,
 	Run: interactive,
 }

@@ -6,5 +6,5 @@ download:
 	go get -d ./...
 
 build:
-	go build -o ./bin/music_service
+	go build -o ./music_service
 
