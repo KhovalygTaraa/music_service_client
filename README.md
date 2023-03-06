@@ -1,25 +1,26 @@
 # music_service_client
 
-Клиент реализован на фреймворке cobra-cli.
+## Клиент реализован на фреймворке cobra-cli.
 
-Команда сборки:
+
+### Команда сборки:
 make
 
-Список доступных комманд:
+### Список доступных комманд:
 ./music_service -help
 
-Просмотр необходимых опций комманд:
+### Просмотр необходимых опций комманд:
 ./music_servise add -help
 
-Интерактивный режим:
+## Интерактивный режим:
 ./music_servise interactive
 
-Примеры:
-./music_servise play
-./music_servise add --songName "Hello" --authorName "Adele" --duration 31
+### Примеры:
+./music_servise play \
+./music_servise add --songName "Hello" --authorName "Adele" --duration 31 
 
-Интерактивный режим пример:
-./music_servise interactive
-play
-add wrong
-add "Hello" "Adele" 90
+### Интерактивный режим пример:
+./music_servise interactive \
+play \
+add wrong \
+add "Hello" "Adele" 90 \
